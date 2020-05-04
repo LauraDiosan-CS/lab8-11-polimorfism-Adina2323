@@ -1,0 +1,2 @@
+model1 cfrm 23 50 23 27
+model2 cfrm 22 1 1 0

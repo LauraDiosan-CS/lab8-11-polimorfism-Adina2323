@@ -1,0 +1,2 @@
+model1 CFR 23
+model2 CFR 22

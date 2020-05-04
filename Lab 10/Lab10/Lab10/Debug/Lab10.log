@@ -1,0 +1,6 @@
+﻿  Source.cpp
+E:\Facultate\Anul 1\Semestrul 2\Info sem2\Lab 10\Lab10\Lab10\Source.cpp(4,1): warning C4326: return type of 'main' should be 'int' instead of 'void'
+  TestRepo.cpp
+  TrenMarfa.cpp
+  Generating Code...
+  Lab10.vcxproj -> E:\Facultate\Anul 1\Semestrul 2\Info sem2\Lab 10\Lab10\Debug\Lab10.exe
