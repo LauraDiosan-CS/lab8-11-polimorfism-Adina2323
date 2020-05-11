@@ -1,0 +1,5 @@
+TP,model1,cfrm,27,50,23,23
+TP,model2,cfrm,0,1,1,22
+TM,model1,CFR,23,1,22,grau
+TM,model2,CFR,100,4,2,ceapa
+TP,model1, cfrm,50,23,27,23

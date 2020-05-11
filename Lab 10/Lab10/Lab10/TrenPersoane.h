@@ -4,26 +4,18 @@
 class TrenPersoane:public Tren
 {
 private:
-	Tren t;
 	int locuri;
-	int nr_libere;
-	int nr_ocupate;
 public:
 	TrenPersoane();
-	//TrenPersoane(string, string, int, int, int, int);
-	TrenPersoane(Tren&, int, int, int);
-	TrenPersoane(string, char);
-	Tren getTren();
-	void setTren(Tren&);
+	TrenPersoane(string, string, int, int, int, int);
+	TrenPersoane(const TrenPersoane& t);
+
+	Tren* clone();
+
 	void setLocuri(int);
-	void setLibere(int);
-	void setOcupate(int);
 	int getLocuri();
-	int getLibere();
-	int getOcupate();
+	TrenPersoane& operator=(const TrenPersoane&);
 	bool operator==(const TrenPersoane&);
-	string toString();
-	string toStringDelimiter(char delim);
+	string toString(string delim);
 	~TrenPersoane();
-	friend class Tren;
 };

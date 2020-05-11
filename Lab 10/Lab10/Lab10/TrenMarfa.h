@@ -4,26 +4,19 @@
 class TrenMarfa:public Tren
 {
 private:
-	Tren t;
 	string marfa;
-	int nr_libere;
-	int nr_ocupate;
+
 public:
 	TrenMarfa();
-	//TrenMarfa(string, string, int, string, int, int);
-	TrenMarfa(Tren&, string, int, int);
-	TrenMarfa(string, char);
-	Tren getTren();
-	void setTren(Tren&);
+	TrenMarfa(string, string, int, string, int, int);
+	TrenMarfa(const TrenMarfa&);
+	Tren* clone();
+
 	void setMarfa(string);
-	void setLibere(int);
-	void setOcupate(int);
 	string getMarfa();
-	int getLibere();
-	int getOcupate();
+
+	TrenMarfa& operator=(const TrenMarfa& t);
 	bool operator==(const TrenMarfa&);
-	string toString();
-	string toStringDelimiter(char delim);
+	string toString(string delim);
 	~TrenMarfa();
-	friend class Tren;
 };

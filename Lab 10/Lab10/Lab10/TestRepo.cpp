@@ -1,137 +1,213 @@
 #include "TestRepo.h"
-#include <assert.h>
+#include "RepoFileTXT.h"
+#include "RepoFileCSV.h"
+#include "TrenMarfa.h"
+#include "TrenPersoane.h"
+#include <cassert>
 #include <iostream>
-
-
-void TestRepo::runCSVTests()
+#include "Validation.h"
+#include "ValidationException.h"
+void TestRepo::testGetAll()
 {
-	/*Tren*/
-	RepoFile<Tren>* repo = new RepoFileCSV<Tren>("Trenuri.csv");
-	((RepoFileCSV<Tren>*)repo)->loadFromFile();
-	assert(repo->size() == 2);
-	Tren t1("modelut", "CFR", 23);
-	repo->add(t1);
-	((RepoFileCSV<Tren>*)repo)->saveToFile();
-	assert(repo->find(t1) == 2);
-	Tren t2("model1", "CFR", 22);
-	repo->update(t1, t2);
-	assert(repo->find(t2) == 2);
-	assert(repo->find(t1) ==-1);
-	assert(repo->size()==3);
-	assert(repo->remove(t2) == 0);
-	assert(repo->size() == 2);	
-	//TrenMarfa
-	RepoFile<TrenMarfa>* repo_marfa = new RepoFileCSV<TrenMarfa>("TrenuriMarfa.csv");
-	((RepoFileCSV<TrenMarfa>*)repo_marfa)->loadFromFile();
-	assert(repo_marfa->size() == 2);
-	TrenMarfa m1(t1, "paie", 22, 12);
-	repo_marfa->add(m1);
-	assert(repo_marfa->size() == 3);
-	cout << repo_marfa->find(m1);
-	assert(repo_marfa->find(m1) == 2);
-	((RepoFileCSV<TrenMarfa>*)repo_marfa)->saveToFile();
-	TrenMarfa m2(t2,"paie", 100, 22);
-	repo_marfa->update(m1, m2);
-	assert(repo_marfa->find(m2) == 2);
-	assert(repo_marfa->find(m1) == -1);
-	assert(repo_marfa->size() == 3);
-	assert(repo_marfa->remove(m2) == 0);
-	assert(repo_marfa->size() == 2);
-
+	RepoFile* repoFile = new RepoFileTXT();
+	TrenPersoane* t1 = new TrenPersoane("model1"," cfrm", 23, 50, 23, 27);
+	TrenMarfa* t2 = new TrenMarfa("model2"," CFR", 100, "ceapa", 4, 2);
+	repoFile->addTren(t1);
+	repoFile->addTren(t2);
+	vector<Tren*> produse = repoFile->getAll();
+	assert(repoFile->getSize() == 2);
+	assert(*garnituri[0] == *t1);
+	assert(*garnituri[1] == *t2);
 }
-void TestRepo::runTXTTests()
+
+void TestRepo::testGetSize()
 {
-	/*Tren*/
-	RepoFile<Tren>* repo = new RepoFileTXT<Tren>("Trenuri.txt");
-	((RepoFileTXT<Tren>*)repo)->loadFromFile();
-	assert(repo->size() == 2);
-	Tren t1("modelut", "CFR", 23);
-	repo->add(t1);
-	((RepoFileTXT<Tren>*)repo)->saveToFile();
-	assert(repo->find(t1) == 2);
-	Tren t2("model1", "CFR", 22);
-	repo->update(t1, t2);
-	assert(repo->find(t2) == 2);
-	assert(repo->find(t1) == -1);
-	assert(repo->size() == 3);
-	assert(repo->remove(t2) == 0);
-	assert(repo->size() == 2);
-	//TrenPersoane
-	RepoFile<TrenPersoane>* repo_persoane = new RepoFileTXT<TrenPersoane>("TrenuriPersoane.txt");
-	((RepoFileTXT<TrenPersoane>*)repo_persoane)->loadFromFile();
-	assert(repo_persoane->size() == 2);
-	TrenPersoane p1(t1, 100, 22, 12);
-	repo_persoane->add(p1);
-	assert(repo_persoane->size() == 3);
-	assert(repo_persoane->find(p1) == 2);
-	((RepoFileTXT<TrenPersoane>*)repo_persoane)->saveToFile();
-	TrenPersoane p2(t2, 255, 100, 22);
-	repo_persoane->update(p1, p2);
-	assert(repo_persoane->find(p2) == 2);
-	assert(repo_persoane->find(p1) == -1);
-	assert(repo_persoane->size() == 3);
-	assert(repo_persoane->remove(p2) == 0);
-	assert(repo_persoane->size() == 2);
+	RepoFile* repoFile = new RepoFileTXT();
+	assert(repoFile->getSize() == 0);
+	TrenMarfa* p = new  TrenMarfa("model2", " CFR", 100, "ceapa", 4, 2);
+	repoFile->addTren(p);
+	assert(repoFile->getSize() == 1);
 }
-//void TestRepo::live()
-/*
+
+void TestRepo::testGetProdus()
 {
-	RepoFile<Tren>* repo = new RepoFileCSV<Tren>("fisier-111-1.csv");
-	((RepoFileCSV<Tren>*)repo)->loadFromFile();
-	Tren* g1 = new TrenMarfa("KBT8", "Fleishmann", 8, "carbuni", 10, 20);
-	Tren* g2 = new TrenPersoane("A0JK", "Neumann", 10, 200, 4, 30);
-	Tren* g3 = new TrenMarfa("B1xC", "Aron", 11, "benzina", 9, 12);
-	Tren* g4 = new TrenPersoane("DIJ9", "Stora", 9, 150, 5, 28);
-	assert(repo->size() == 2);*/
-	/*
-	assert(*(repo->get(0)) == *g2);
-	assert(*(repo->get(1)) == *g1);
-	repo->add(g3);
-	assert(repo->getSize() == 3);
-	assert(*(repo->get(0)) == *g2);
-	assert(*(repo->get(1)) == *g3);
-	assert(*(repo->get(2)) == *g1);
-	repo->add(g4);
-	assert(repo->getSize() == 4);
-	assert(*(repo->get(0)) == *g2);
-	assert(*(repo->get(1)) == *g3);
-	assert(*(repo->get(2)) == *g4);
-	assert(*(repo->get(3)) == *g1);*/
+	RepoFile* repoFile = new RepoFileTXT();
+	TrenMarfa* p = new  TrenMarfa("model2", " CFR", 100, "ceapa", 4, 2);
+	repoFile->addTren(p);
+	assert(*(repoFile->getTren(0)) == *p);
+	
+}
 
-
-
-//}*/
-void TestRepo::runInMemoryTests()
+void TestRepo::testAddProdus()
 {
-	//User
-	Repo<User>* repoUseri = new RepoInMemory<User>();
-	User u1("Ana", "123");
-	User u2("Andrei", "111");
-	repoUseri->add(u1);
-	assert(repoUseri->size() == 1);
-	assert(repoUseri->find(u1) == 0);
-	repoUseri->update(u1, u2);
-	assert(repoUseri->find(u1) == -1);
-	assert(repoUseri->remove(u2) == 0);
-	assert(repoUseri->size() == 0);
+	RepoFile* repoFile = new RepoFileTXT();
+	TrenMarfa* p = new  TrenMarfa("model2", " CFR", 100, "ceapa", 4, 2);
+	repoFile->addTren(p);
+	assert(*(repoFile->getTren(0)) == *p);
+}
 
+void TestRepo::testUpdateProdus()
+{
+	RepoFile* repoFile = new RepoFileTXT();
+	TrenMarfa* p1 = new  TrenMarfa("model2", " CFR", 100, "ceapa", 4, 2);
+	repoFile->addTren(p1);
+	TrenPersoane* t1 = new TrenPersoane("model1", " cfrm", 23, 50, 23, 27);
+	TrenPersoane* t2 = new TrenPersoane("model1", " cfrm", 100, 2, 2, 2);
+	repoFile->updateTren(t1, t2);
+	assert(*(repoFile->getTren(0)) == *p1);
+	repoFile->updateTren(p1, t2);
+	assert(*(repoFile->getTren(0)) == *t2);
+}
+
+void TestRepo::testDeleteProdus()
+{
+	RepoFile* repoFile = new RepoFileTXT();
+	TrenMarfa* p1 = new  TrenMarfa("model2", " CFR", 100, "ceapa", 4, 2);
+	repoFile->addTren(p1);
+	TrenPersoane* t1 = new TrenPersoane("model1", " cfrm", 23, 50, 23, 27);
+	repoFile->deleteTren(p1);
+	assert(repoFile->getSize() == 0);
+	repoFile->addTren(t1);
+	assert(*(repoFile->getTren(0)) == *t1);
+	repoFile->deleteTren(t1);
+	assert(repoFile->getSize() == 0);
+}
+
+void TestRepo::testLoadFromFileTXT()
+{
+	RepoFile* repoFile = new RepoFileTXT(this->fileNameInTXT);
+	repoFile->loadFromFile();
+	assert(repoFile->getSize() == 4);
+}
+
+void TestRepo::testSaveToFileTXT()
+{
+	RepoFile* repoFile = new RepoFileTXT(this->fileNameInTXT);
+	repoFile->loadFromFile();
+	repoFile->setFileName(this->fileNameOutTXT);
+	TrenPersoane* t1 = new TrenPersoane("model1", " cfrm", 23, 50, 23, 27);
+	repoFile->addTren(t1);
+	repoFile->saveToFile();
+	
+}
+
+void TestRepo::testLoadFromFileCSV()
+{
+	RepoFile* repoFile = new RepoFileCSV(this->fileNameInCSV);
+	repoFile->loadFromFile();
+	assert(repoFile->getSize() == 4);
+}
+
+void TestRepo::testSaveToFileCSV()
+{
+	RepoFile* repoFile = new RepoFileCSV(this->fileNameInCSV);
+	repoFile->loadFromFile();
+	repoFile->setFileName(this->fileNameOutCSV);
+	TrenPersoane* t1 = new TrenPersoane("model1", " cfrm", 23, 50, 23, 27);
+	repoFile->addTren(t1);
+	repoFile->saveToFile();
 }
 
 TestRepo::TestRepo()
 {
+	TrenPersoane* t1 = new TrenPersoane("model1", " cfrm", 23, 50, 23, 27);
+	TrenMarfa* t2 = new TrenMarfa("model2", " CFR", 100, "ceapa", 4, 2);
+	this->garnituri.push_back(t1);
+	this->garnituri.push_back(t2);
 }
-
-
-
-void TestRepo::runTests()
-{
-	runCSVTests();
-	runTXTTests();
-	runInMemoryTests();
-	//live();
-}
-
 
 TestRepo::~TestRepo()
 {
+}
+void TestRepo::live()
+{
+	RepoFile* repo = new RepoFileTXT();
+	TrenMarfa* g1 = new TrenMarfa("104", "Fleishmann", 8, "carbuni", 10, 20);
+	TrenPersoane* g2 = new TrenPersoane("749", "Neumann", 10, 200, 4, 30);
+	TrenMarfa* g3 = new TrenMarfa("951", "Aron", 11, "benzina", 9, 12);
+	TrenPersoane* g4 = new TrenPersoane("104", "Alonso", 20, 300, 2, 10);
+	TrenMarfa* g5 = new TrenMarfa("354", "Fierra", 12, "lemn", 11, 13);
+	repo->addTren(g1);
+	repo->addTren(g2);
+	repo->addTren(g3);
+	try {
+		repo->updateTren(g2, g4);
+		assert(repo->getSize() == 3);
+		assert(*(repo->getTren(0)) == *g1);
+		assert(*(repo->getTren(1)) == *g4);
+		assert(*(repo->getTren(2)) == *g3);
+	}
+	catch (exception& e)
+	{
+			UpdateException1:
+		cout << "Assert false";
+			UpdateException2:
+		cout << "Assert false";
+			UpdateException3:
+		cout << "Assert false";
+	}/*
+	try {}
+			Update Train with model “770” to g5
+			Assert false
+			Catch
+			UpdateException1 :
+		Print “UpdateException1 thrown”
+			Assert Size equals 3
+			Assert GetAtPos(0) equals g1
+			Assert GetAtPos(1) equals g4
+			Assert GetAtPos(2) equals g3
+			UpdateException2 :
+		Assert false
+			UpdateException3 :
+			Assert false
+			Try
+			Update Train with model “104” to g4
+			Assert false
+			Catch
+			UpdateException1 :
+		Assert false
+			UpdateException2 :
+			Print “UpdateException2 thrown”
+			Assert Size equals 3
+			Assert GetAtPos(0) equals g1
+			Assert GetAtPos(1) equals g4
+			Assert GetAtPos(2) equals g3
+			UpdateException3 :
+		Assert false
+			Try
+			Update Train with model “770” to g5
+			Assert false
+			Catch
+			UpdateException3
+			Print “UpdateException3 thrown”
+			UpdateException1
+			Assert false
+			UpdateException2
+			Assert false
+			Try
+			Update Train with model “104” to g5
+			Assert false
+			Catch
+			UpdateException3 :
+		Print “UpdateException3 thrown”
+			UpdateException1 :
+		Assert false
+			UpdateException2 :
+			Assert false*/
+
+	
+}
+void TestRepo::testAll()
+{
+	this->testGetAll();
+	this->testGetSize();
+	this->testGetProdus();
+	this->testAddProdus();
+	this->testUpdateProdus();
+	this->testDeleteProdus();
+	this->testLoadFromFileTXT();
+	this->testSaveToFileTXT();
+	this->testLoadFromFileCSV();
+	this->testSaveToFileCSV();
+	this->live();
 }

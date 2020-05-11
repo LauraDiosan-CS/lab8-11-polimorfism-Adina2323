@@ -138,38 +138,58 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Repofile.cpp" />
+    <ClCompile Include="RepoFileCSV.cpp" />
+    <ClCompile Include="RepoFileTXT.cpp" />
+    <ClCompile Include="RepoUser.cpp" />
+    <ClCompile Include="Service.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TesteService.cpp" />
     <ClCompile Include="TestRepo.cpp" />
+    <ClCompile Include="TestTren.cpp" />
+    <ClCompile Include="TestTrenMarfa.cpp" />
+    <ClCompile Include="TestTrenPersoane.cpp" />
     <ClCompile Include="TrenMarfa.cpp" />
     <ClCompile Include="TrenPersoane.cpp" />
+    <ClCompile Include="Ui.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="Tren.cpp" />
     <ClCompile Include="USer.cpp" />
+    <ClCompile Include="Validation.cpp" />
+    <ClCompile Include="ValidationMarfa.cpp" />
+    <ClCompile Include="ValidationPersoane.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="RepoInMemory.h" />
-    <ClInclude Include="TestRepo.h" />
+    <ClInclude Include="RepoTXT.h" />
     <ClInclude Include="RepoFileTXT.h" />
+    <ClInclude Include="RepoUser.h" />
+    <ClInclude Include="Service.h" />
+    <ClInclude Include="TesteService.h" />
+    <ClInclude Include="TestRepo.h" />
+    <ClInclude Include="TestTren.h" />
+    <ClInclude Include="TestTrenMarfa.h" />
+    <ClInclude Include="TestTrenPersoane.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="RepoFileCSV.h" />
-    <ClInclude Include="Repo.h" />
     <ClInclude Include="RepoFile.h" />
     <ClInclude Include="Tren.h" />
     <ClInclude Include="TrenMarfa.h" />
     <ClInclude Include="TrenPersoane.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="Util.h" />
+    <ClInclude Include="Validation.h" />
+    <ClInclude Include="ValidationException.h" />
+    <ClInclude Include="ValidationMarfa.h" />
+    <ClInclude Include="ValidationPersoane.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fisier-111-1.csv" />
-    <None Include="Trenuri.csv" />
-    <None Include="TrenuriMarfa.csv" />
-    <None Include="TrenuriPersoane.csv" />
+    <None Include="TrenuriOut.csv" />
+    <None Include="TrenuriIN.csv" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TrenuriPersoane.txt" />
-    <Text Include="Trenuri.txt" />
-    <Text Include="TrenuriMarfa.txt" />
+    <Text Include="TrenuriIN.txt" />
+    <Text Include="TrenuriOut.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

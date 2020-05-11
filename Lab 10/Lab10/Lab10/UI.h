@@ -5,13 +5,13 @@
 #include "Tren.h"
 #include "TrenMarfa.h"
 #include "TrenPersoane.h"
+#include "Service.h"
 
 class UI
 {
-private:
-	Repo<User>* repoUser;
-	Repo<Tren>* repoTren;
-	Repo<TrenMarfa>* repoMarfa;
-	Repo<TrenPersoane>* repoPersoane;
-
+protected:
+	Service s;
+	User u;
+public:
+	int login();
 };

@@ -1,23 +1,31 @@
 #pragma once
-#include "RepoFile.h"
-#include "RepoFileCSV.h"
-#include "RepoFileTXT.h"
-#include "RepoInMemory.h"
+#include <vector>
 #include "Tren.h"
-#include "TrenMarfa.h"
-#include "TrenPersoane.h"
-#include "User.h"
-
 class TestRepo
 {
 private:
-	void runCSVTests();
-	void runTXTTests();
+	const string fileNameInTXT = "TrenuriIN.txt";
+	const string fileNameOutTXT = "TrenuriOut.txt";
+	const string fileNameInCSV = "TrenuriIN.csv";
+	const string fileNameOutCSV = "TrenuriOut.csv";
+
+	vector<Tren*> garnituri;
+
+	void testGetAll();
+	void testGetSize();
+	void testGetProdus();
+	void testAddProdus();
+	void testUpdateProdus();
+	void testDeleteProdus();
+
+	void testLoadFromFileTXT();
+	void testSaveToFileTXT();
+	void testLoadFromFileCSV();
+	void testSaveToFileCSV();
 	void live();
-	void runInMemoryTests();
 public:
 	TestRepo();
-	void runTests();
 	~TestRepo();
+	void testAll();
 };
 

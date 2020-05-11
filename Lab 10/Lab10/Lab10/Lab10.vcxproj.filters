@@ -30,25 +30,52 @@
     <ClInclude Include="TrenPersoane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Repo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RepoFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="RepoFileCSV.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="RepoFileTXT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTren.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTrenMarfa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestTrenPersoane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TestRepo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RepoInMemory.h">
+    <ClInclude Include="Service.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
+    <ClInclude Include="Validation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ValidationMarfa.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ValidationPersoane.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ValidationException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TesteService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RepoUser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RepoTXT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -68,35 +95,68 @@
     <ClCompile Include="TrenPersoane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestRepo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Repofile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RepoFileCSV.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RepoFileTXT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTren.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTrenMarfa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTrenPersoane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestRepo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Service.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Validation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ValidationMarfa.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ValidationPersoane.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TesteService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RepoUser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Trenuri.csv">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="TrenuriMarfa.csv">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="TrenuriPersoane.csv">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="fisier-111-1.csv">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="TrenuriOut.csv">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="TrenuriIN.csv">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Trenuri.txt">
+    <Text Include="TrenuriOut.txt">
       <Filter>Resource Files</Filter>
     </Text>
-    <Text Include="TrenuriMarfa.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
-    <Text Include="TrenuriPersoane.txt">
+    <Text Include="TrenuriIN.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

@@ -1,42 +1,32 @@
 #pragma once
-#include "Repo.h"
-template <class T> class RepoFile : public Repo<T>
-{
+#include "Tren.h"
+#include "Validation.h"
+#include "ValidationException.h"
+#include "Validation.h"
+#include <vector>
 
+using namespace std;
+
+class RepoFile {
 protected:
-	const char* fileName;
-
+	vector<Tren*> garnituri;
+	string fileName;
+	Validation* validation=new Validation;
 public:
 	RepoFile();
-	RepoFile(const char*);
-	virtual void saveToFile();
-	virtual void loadFromFile();
+	RepoFile(Validation*);
+	RepoFile(string fileName);
 	~RepoFile();
+	void setFileName(string fileName);
+
+	vector<Tren*> getAll();
+	int getSize();
+	Tren* getTren(int pos);
+	void addTren(Tren* p);
+	void updateTren(Tren* pVechi, Tren* pNou);
+	void deleteTren(Tren* p);
+	void emptyRepo();
+
+	virtual void loadFromFile() = 0;
+	virtual void saveToFile() = 0;
 };
-
-
-template<class T>
-RepoFile<T>::RepoFile() :Repo<T>()
-{
-}
-
-template<class T>
-RepoFile<T>::RepoFile(const char* name)
-{
-	fileName = name;
-}
-
-template<class T>
-RepoFile<T>::~RepoFile()
-{
-}
-
-template<class T>
-void RepoFile<T>::saveToFile()
-{
-}
-
-template<class T>
-void RepoFile<T>::loadFromFile()
-{
-}

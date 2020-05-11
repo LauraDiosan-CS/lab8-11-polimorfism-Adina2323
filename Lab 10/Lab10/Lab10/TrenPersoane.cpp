@@ -4,70 +4,42 @@
 TrenPersoane::TrenPersoane()
 {
 	locuri = 0;
-	nr_libere = 0;
-	nr_ocupate = 0;
 }
-TrenPersoane::TrenPersoane(Tren& tren, int locs, int lib, int ocup)
+TrenPersoane::TrenPersoane(string m, string p, int locs, int nr_vag, int lib, int ocup):Tren(m,p,nr_vag,lib,ocup)
 {
-	t = tren;
-	locuri = locs;
-	nr_libere = lib;
-	nr_ocupate = ocup;
+	this->locuri = locs;
 }
-TrenPersoane::TrenPersoane(string linie, char delim)
+TrenPersoane::TrenPersoane(const TrenPersoane &t):Tren(t)
 {
-	vector<string> tokens = splitLine(linie, delim);
-	t.model = tokens[0];
-	t.producator = tokens[1];
-	t.nr_vag = stoi(tokens[2]);
-	locuri = stoi(tokens[3]);
-	nr_libere = stoi(tokens[4]);
-	nr_ocupate = stoi(tokens[5]);
-}
-Tren TrenPersoane::getTren()
-{
-	return t;
+	this->locuri = t.locuri;
 }
 int TrenPersoane::getLocuri()
 {
 	return locuri;
 }
-int  TrenPersoane::getLibere()
-{
-	return nr_libere;
-}
-int  TrenPersoane::getOcupate()
-{
-	return nr_ocupate;
-}
-void  TrenPersoane::setTren(Tren& tren)
-{
-	t = tren;
-}
 void  TrenPersoane::setLocuri(int locs)
 {
 	locuri=locs;
 }
-void  TrenPersoane::setLibere(int libs)
+Tren* TrenPersoane::clone()
 {
-	nr_libere = libs;
-}
-void  TrenPersoane::setOcupate(int ocups)
-{
-	nr_ocupate = ocups;
+	return new TrenPersoane(this->model, this->producator, this->locuri, this->nr_vag, this->nr_libere, this->nr_ocupate);
 }
 bool  TrenPersoane::operator==(const TrenPersoane& tren)
 {
-	return t.operator==(tren.t) and (locuri == tren.locuri) and (nr_libere == tren.nr_libere) and (nr_ocupate == tren.nr_ocupate);
+	return Tren::operator==(tren) && this->locuri == tren.locuri;
 }
-string  TrenPersoane::toString()
+TrenPersoane& TrenPersoane::operator=(const TrenPersoane& t)
 {
-	return t.toString() + " " + to_string(locuri) + " " + to_string(nr_libere) + " " + to_string(nr_ocupate);
+	Tren::operator=(t);
+	this->locuri = t.locuri;
+	return *this;
 }
-string TrenPersoane::toStringDelimiter(char delim)
+string  TrenPersoane::toString(string delim)
 {
-	return t.toStringDelimiter(delim) + delim + to_string(locuri) + delim + to_string(nr_libere) + delim + to_string(nr_ocupate);
+	return "TP"+ delim+Tren::toString(delim)+delim+to_string(this->locuri);
 }
+
 TrenPersoane::~TrenPersoane()
 {
 }
