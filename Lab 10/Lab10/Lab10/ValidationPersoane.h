@@ -5,7 +5,7 @@ class ValidationPersoane:public Validation
 {
 public:
 	ValidationPersoane();
-	int validate(Tren*);
+	void validate(Tren*);
 	~ValidationPersoane();
 };
 

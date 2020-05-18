@@ -10,7 +10,7 @@ protected:
 	string mesaj;
 public:
 	Validation();
-	virtual int validate(Tren*);
+	virtual void validate(Tren*);
 	string toString();
 	~Validation();
 };

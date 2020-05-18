@@ -1,15 +1,17 @@
 #include "ValidationPersoane.h"
+#include "ValidationException.h"
 ValidationPersoane::ValidationPersoane()
 {
 
 }
-int ValidationPersoane::validate(Tren* t)
+void ValidationPersoane::validate(Tren* t)
 {
+	Validation::validate(t);
 	TrenPersoane* tp = (TrenPersoane*)t;
-	Validation::validate(tp);
-	if (tp->getLocuri() < 0) { err++; mesaj += "Nr-ul de locuri trebuie sa fie strict pozitiv! ";
+	if (tp->getLocuri() <= 0)
+	{
+		throw ValidationException("Numarul de locuri trebuie sa fie strict poz");
 	}
-	return err;
 }
 
 ValidationPersoane::~ValidationPersoane()

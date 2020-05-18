@@ -10,8 +10,23 @@
 class UI
 {
 protected:
-	Service s;
+	Service serv;
 	User u;
-public:
 	int login();
+	void showMenu();
+	void chooseFileType();
+	void UILoadFromFile();
+	void UIAddTrenMarfa();
+	void UIAddTrenPersoane();
+	void UIModifyTren();
+	void UIDeleteTren();
+	void UIShowAll();
+	void printTren(vector<Tren*> trenuri);
+	void getByNr();
+	void getByProd();
+	void ModifyRezervari();
+public:
+	UI();
+	~UI();
+	void run();
 };

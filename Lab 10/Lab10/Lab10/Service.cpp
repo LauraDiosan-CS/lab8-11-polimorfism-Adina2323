@@ -3,6 +3,7 @@
 #include "TrenPersoane.h"
 #include <algorithm>
 #include "Validation.h"
+#include "RepoException.h"
 
 template<typename Base, typename T>
 inline bool instanceof(const T*) {
@@ -11,74 +12,137 @@ inline bool instanceof(const T*) {
 
 Service::Service()
 {
+	this->repo = NULL;
 }
-
-Service::Service(RepoFile& rN, RepoFile& rP)
+void Service::setRepo(RepoFile* repo)
 {
-	repoMarfa = &rN;
-	repoPers = &rP;
+	this->repo = repo;
 }
 
 bool Service::login(string u, string p)
 {
 	User usr(u, p);
-
 	return repoUser->find(usr) != -1;
 }
-
+Tren* Service::getTrenAtPos(int pos)
+throw (RepoException)
+{
+	return this->repo->getTren(pos);
+}
 void Service::addTrenMarfa(string m, string p, int nr, int l, int o, string i)
+throw(ValidationException, RepoException) 
 {
-	try {
-		Tren* v = new TrenMarfa(m,p,nr,i,l,o);
-		repoMarfa->addTren(v);
-	}
-	catch (ValidationException ex) {
-		throw ex;
-	}
+	TrenMarfa* v = new TrenMarfa(m,p,nr,i,l,o);
+	this->repo->addTren(v);
+	
 }
-
+int Service::getsize()
+{
+	return this->repo->getSize();
+}
 void Service::addTrenPersoane(string m, string p, int nr, int l, int o, int locs)
+throw(ValidationException, RepoException) 
 {
-try {
+
 	Tren* v = new TrenPersoane(m, p, nr, locs, l, o);
-	repoMarfa->addTren(v);
-}
-catch (ValidationException ex) {
-	throw ex;
-}
+	this->repo->addTren(v);
+
 }
 
-
-void Service::delTM(string m, string p, int nr, int l, int o, string i)
+void Service::updateTM(string numeV, string modelV, int nrV, int ocupV, int libV, string marfaV, string nume, string model, int nr, int ocup, int lib, string marfa)
+throw (ValidationException, RepoException)
 {
-	repoMarfa->deleteTren(new TrenMarfa(m,p,nr,i,l,o));
+	Tren* tv = new Tren(numeV, modelV, nrV, ocupV, libV);
+	TrenMarfa* tn = new TrenMarfa(nume, model, nr, marfa, ocup, lib);
+	this->repo->updateTren(tv, tn);
 }
-void Service::delTP(string m, string p, int nr, int l, int o,int locs) {
-	repoPers->deleteTren(new TrenPersoane(m, p, nr, locs, l, o));
+void Service::updateTP(string numeV, string modelV, int nrV, int ocupV, int libV, int locV, string nume, string model, int nr, int ocup, int lib, int loc)
+throw (ValidationException, RepoException)
+{
+	Tren* tv = new Tren(numeV, modelV, nrV, ocupV, libV);
+	TrenPersoane* tn = new TrenPersoane(nume, model, nr, loc, ocup, lib);
+	this->repo->updateTren(tv, tn);
 }
+void Service::delTren(string model)throw (RepoException)
+{
+	Tren* t = new Tren(model, " ", 0, 0, 0);
+	this->repo->deleteTren(t);
+}
+void Service::upTren(string mV, string m, string p, int nr, int lib, int ocup)
+{
+	Tren* t=new Tren("","",0,0,0);
+	for (Tren* c : this->getAll())
+	{
+		if (c->getModel() == mV)
+			break;
+		t = c;
+	}
+	if (!t->getModel().empty())
+	{
+		Tren* tn = new  Tren(m, p, nr, lib, ocup);
+		this->repo->updateTren(t, tn);
+	}
+	else return;
+}
+vector <Tren*> Service::filterbyNr(int nr)
+{
+	vector<Tren*> trenuri = this->repo->getAll();
+	vector <Tren*> result;
+	for (Tren* t : trenuri)
+	{
+		if (t->getNr() == nr)
+		{
+			result.push_back(t->clone());
+		}
+	}
+	return result;
+}
+Tren* Service::getTrenModel(string model)
+{
+	vector<Tren*> trenuri = this->repo->getAll();
+	for (Tren* t : trenuri)
+	{
+		if (t->getModel() == model)
+		{
+			return t;
+		}
+	}
+	Tren* t=new Tren(" ", " ", 0, 0, 0);
+	return t;
 
+}
+vector <Tren*> Service::filterbyProd(string prod)
+{
+	vector<Tren*> trenuri = this->repo->getAll();
+	vector <Tren*> result;
+	for (Tren* t : trenuri)
+	{
+		if (t->getProducator()==prod)
+		{
+			result.push_back(t->clone());
+		}
+	}
+	return result;
+}
 vector<Tren*> Service::getAll()
 {
-	vector<Tren*> all(repoMarfa->getAll());
-	vector<Tren*> poezii = repoPers->getAll();
-
-	all.insert(all.end(), poezii.begin(), poezii.end());
-	return all;
+	return this->repo->getAll();
 }
 
-vector<Tren*> Service::getAllTP()
+
+void Service::saveFromFile()
 {
-	return repoPers->getAll();
+	this->repo->saveToFile();
 }
-
-vector<Tren*> Service::getAllTM()
+void Service::loadFromfile()
 {
-
-	return repoMarfa->getAll();
+	this->repo->loadFromFile();
 }
 
-
-
+void Service::setFileName(string fileName)
+{
+	this->repo->setFileName(fileName);
+}
 
 Service::~Service()
 {

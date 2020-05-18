@@ -160,6 +160,8 @@
     <ClCompile Include="ValidationPersoane.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ReadFromFileException.h" />
+    <ClInclude Include="RepoException.h" />
     <ClInclude Include="RepoTXT.h" />
     <ClInclude Include="RepoFileTXT.h" />
     <ClInclude Include="RepoUser.h" />

@@ -5,7 +5,7 @@ class ValidationMarfa:public Validation
 {
 public: 
 	ValidationMarfa();
-	int validate(Tren*);
+	void validate(Tren*);
 	~ValidationMarfa();
 };
 

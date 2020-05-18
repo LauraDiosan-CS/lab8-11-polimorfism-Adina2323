@@ -1,15 +1,24 @@
 #include "ValidationMarfa.h"
+#include "ValidationException.h"
 ValidationMarfa::ValidationMarfa()
 {
 
 }
-int ValidationMarfa::validate(Tren* t)
+void ValidationMarfa::validate(Tren* t)
 {
+	Validation::validate(t);
 	TrenMarfa* tm = (TrenMarfa*)t;
-	Validation::validate(tm);
-	for (int i = 0; i < size(tm->getMarfa()); i++)
-		if (!isalpha(tm->getMarfa()[i]) and tm->getMarfa()[i] != ' ') { err++; mesaj += "Marfa trebuie sa contina numai litere sau spatiu! "; break; }
-	return err;
+	if (tm->getMarfa().empty())
+	{
+		throw ValidationException("Marfa trebuie sa fie specificata");
+	}
+	for (char c : tm->getMarfa()) {
+		if (!isalpha(c))
+		{
+			throw ValidationException("Marfa trebuie sa contina doar litere");
+		}
+	}
+	
 }
 
 ValidationMarfa::~ValidationMarfa()

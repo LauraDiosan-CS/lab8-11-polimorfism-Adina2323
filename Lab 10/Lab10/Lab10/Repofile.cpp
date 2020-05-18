@@ -1,11 +1,12 @@
 #include "RepoFile.h"
-
+#include "RepoException.h"
+#include <typeinfo>
+#include "ValidationException.h"
 RepoFile::RepoFile()
 {
 }
 RepoFile::RepoFile(Validation* v)
 {
-	validation = v;
 }
 RepoFile::RepoFile(string fileName)
 {
@@ -38,48 +39,78 @@ Tren* RepoFile::getTren(int pos)
 	{
 		return this->garnituri[pos]->clone();
 	}
-	return new Tren();
+	throw RepoException("Indexul nu e valid! ");
+}
+int RepoFile::findTren(Tren* t)
+{
+	for (int i = 0; i < this->garnituri.size(); i++)
+	{
+		if (this->garnituri[i]->getModel() == t->getModel())
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+void RepoFile::addTren(Tren* t) throw(ValidationException, RepoException)
+{
+	if (typeid(*t) == typeid(TrenMarfa))
+	{
+		this->validatorTM.validate(t);
+	}
+	if (typeid(*t) == typeid(TrenPersoane))
+	{
+		this->validatopTP.validate(t);
+	}
+	if (this->findTren(t) >= 0)
+	{
+		throw ValidationException("Exista deja un tren cu acelasi model");
+	}
+	this->garnituri.push_back(t->clone());
+	this->saveToFile();
+
+
 }
 
-void RepoFile::addTren(Tren* t)
-{
-	if (validation->validate(t) == 0) {
-		this->garnituri.push_back(t->clone());
-		this->saveToFile();
-	}
-	else throw ValidationException(validation->toString().c_str());
-}
 
 void RepoFile::updateTren(Tren* pVechi, Tren* pNou)
 {
-	if (validation->validate(pNou)==0) 
+	if (typeid(*pNou) == typeid(TrenMarfa))
 	{
-		for (int i = 0; i < this->garnituri.size(); i++)
+		this->validatorTM.validate(pNou);
+	}
+	if (typeid(*pNou) == typeid(TrenPersoane))
+	{
+		this -> validatopTP.validate(pNou);
+	}
+	if (this->findTren(pVechi) < 0)
+		throw RepoException("Nu exista acest Tren!");
+	for (int i = 0; i < this->garnituri.size(); i++)
+	{
+		if (this->getTren(i)->getModel() == pVechi->getModel())
 		{
-			if (*(this->garnituri[i]) == *pVechi)
-			{
-				delete this->garnituri[i];
-				this->garnituri[i] = pNou->clone();
-				this->saveToFile();
-				return;
-			}
+			delete this->garnituri[i];
+			this->garnituri[i] = pNou->clone();
+			this->saveToFile();
+			return;
 		}
 	}
-	else throw ValidationException(validation->toString().c_str());
 }
 
 void RepoFile::deleteTren(Tren* p)
 {
 	for (int i = 0; i < this->garnituri.size(); i++)
 	{
-		if (*(this->garnituri[i]) == *p)
+		if (this->garnituri[i]->getModel() == p->getModel())
 		{
 			delete this->garnituri[i];
+			
 			this->garnituri.erase(this->garnituri.begin() + i);
 			this->saveToFile();
 			return;
 		}
 	}
+	throw RepoException("Nu exista niciun tren cu modelul dat!");
 }
 
 void RepoFile::emptyRepo()

@@ -78,6 +78,12 @@
     <ClInclude Include="RepoTXT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="RepoException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadFromFileException.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="USer.cpp">

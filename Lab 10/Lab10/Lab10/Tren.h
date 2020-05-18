@@ -29,6 +29,7 @@ public:
 
 	Tren& operator=(const Tren&);
 	bool operator==(const Tren&);
+	friend istream& operator>>(ifstream& is, Tren* t);
 	virtual string toString(string);
 	~Tren();
 };

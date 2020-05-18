@@ -7,33 +7,19 @@
 #include "TestTren.h"
 #include "TestTrenPersoane.h"
 #include "TestTrenMarfa.h"
+#include "TesteService.h"
 #include "UI.h"
 int main()
-{
+{/*
     TestTren testTren;
     testTren.testAll();
     TestTrenMarfa testTrenMarfa;
     testTrenMarfa.testAll();
     TestTrenPersoane testTrenPersoane;
-    testTrenPersoane.testAll();
-
-    TestRepo testRepoFile;
-    testRepoFile.testAll();
-
-    RepoFile* repoFile;
-    string option;
+    testTrenPersoane.testAll();*/
+   // TestService ts;
+    //ts.runTests();
     UI ui;
-    ui.login();
-    option = "txt";
-    if (option == "txt")
-    {
-        repoFile = new RepoFileTXT("fisier.txt");
-    }
-    else
-    {
-        if (option == "csv")
-        {
-            repoFile = new RepoFileCSV("fisier.txt");
-        }
-    }
+    ui.run();
+    
 }

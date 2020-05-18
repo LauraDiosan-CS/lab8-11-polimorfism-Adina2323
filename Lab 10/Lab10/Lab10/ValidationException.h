@@ -1,22 +1,27 @@
 #pragma once
 #include <exception>
-#include <string>
+#include <string.h>
 using namespace std; 
-class ValidationException:public exception
-{
-	private:
-		char* msg;
-	public:
-		ValidationException(const char* m) {
-			msg = new char[strlen(m)] + 1;
-			strcpy_s(msg, strlen(m) + 1, m);
-		}
+class ValidationException : public exception {
+private:
+	char* message;
+public:
+	ValidationException(const char* message)
+	{
+		this->message = new char[strlen(message) + 1];
+		strcpy_s(this->message, strlen(message) + 1, message);
+	}
 
-		virtual const char* what() const throw()
+	~ValidationException()
+	{
+		if (this->message != NULL)
 		{
-			return msg;
+			delete[] this->message;
 		}
-		ValidationException() { if (msg) delete[] msg; }
+	}
+
+	virtual const char* what()
+	{
+		return message;
+	}
 };
-
-
